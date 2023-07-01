@@ -18,17 +18,15 @@ type Props = {
 
 export const Dropdown = ({title, items, disabled, buttonClassName, itemsClassName, itemClassName}: Props) => {
   return (
-    <Menu as="div" className="relative inline-block text-left">
-      <div>
-        <Menu.Button className={classNames(
-          'inline-flex w-full justify-center items-center gap-x-1.5 rounded-md px-2.5 py-1.5',
-          'text-sm text-gray-200 disabled:bg-gray-700 hover:bg-indigo-700',
-          buttonClassName,
-        )} disabled={disabled}>
-          {title}
-          {!disabled && <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-200" aria-hidden="true"/>}
-        </Menu.Button>
-      </div>
+    <Menu as="div" className="relative inline-block w-full text-left">
+      <Menu.Button className={classNames(
+        'inline-flex w-full justify-center items-center gap-x-1.5 rounded-md px-2.5 py-1.5',
+        'text-sm text-gray-200 disabled:bg-gray-700 hover:bg-indigo-700',
+        buttonClassName,
+      )} disabled={disabled}>
+        {title}
+        {!disabled && <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-200" aria-hidden="true"/>}
+      </Menu.Button>
 
       <Transition
         as={React.Fragment}

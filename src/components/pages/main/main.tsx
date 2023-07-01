@@ -16,6 +16,7 @@ import {AvailableItemsResponse} from '@/types/api/item';
 import {PxDataFromApi} from '@/types/api/px';
 import {PxData} from '@/types/px';
 import {apiGetAvailableItems, apiGetPxData, ApiGetPxDataOpts} from '@/utils/api/px';
+import {classNames} from '@/utils/react';
 import {updateEpochSecToLocal} from '@/utils/time';
 
 
@@ -90,41 +91,50 @@ export const Main = () => {
   return (
     <main className="flex h-screen flex-col items-center gap-2 bg-gradient-radial from-indigo-800 p-3">
       <FullWidthRow className="items-center justify-center">
-        <form className="flex flex-row gap-2" onSubmit={onSubmit}>
-          <Dropdown
-            title={request.item ?? '(Select an item)'}
-            items={[availableItemsResponse.data.map((item) => ({
-              text: item,
-              onSelected: () => {
-                setRequest((request) => ({...request, item}));
-                // Need to call with override because `request` is not updated immediately after `setRequest`,
-                // meaning that `request.item` used could be incorrect
-                requestPxData(item);
-              },
-            }))]}
-            disabled={availableItemsResponse.fetchError}
-            buttonClassName="w-80 ring-inset ring-1"
-            itemsClassName="w-80"
-          />
-          <InputField
-            id="interval-min" placeholder="Interval (min)" className="w-24"
-            type="number" step="1" min="1" value={request.intervalMin.toString()}
-            onChange={(e) => setRequest((request) => ({...request, intervalMin: Number(e.target.value)}))}
-          />
-          <InputField
-            id="date-start" placeholder="Start" className="w-32"
-            type="date" value={request.start}
-            onChange={(e) => setRequest((request) => ({...request, start: e.target.value}))}
-          />
-          <InputField
-            id="date-end" placeholder="End" className="w-32"
-            type="date" value={request.end}
-            onChange={(e) => setRequest((request) => ({...request, end: e.target.value}))}
-          />
-          <input
-            type="submit" value="Request Data"
-            className="cursor-pointer rounded-md px-3 ring-1 ring-inset hover:bg-indigo-800"
-          />
+        <form className="flex flex-col gap-2 md:flex-row" onSubmit={onSubmit}>
+          <div>
+            <Dropdown
+              title={request.item ?? '(Select an item)'}
+              items={[availableItemsResponse.data.map((item) => ({
+                text: item,
+                onSelected: () => {
+                  setRequest((request) => ({...request, item}));
+                  // Need to call with override because `request` is not updated immediately after `setRequest`,
+                  // meaning that `request.item` used could be incorrect
+                  requestPxData(item);
+                },
+              }))]}
+              disabled={availableItemsResponse.fetchError}
+              buttonClassName="w-full md:w-72 ring-inset ring-1 ring-indigo-700"
+              itemsClassName="w-full md:w-72"
+            />
+          </div>
+          <div className="flex flex-row">
+            <InputField
+              id="interval-min" placeholder="Interval (min)" className="w-24"
+              type="number" step="1" min="1" value={request.intervalMin.toString()}
+              onChange={(e) => setRequest((request) => ({...request, intervalMin: Number(e.target.value)}))}
+            />
+            <InputField
+              id="date-start" placeholder="Start" className="w-32"
+              type="date" value={request.start}
+              onChange={(e) => setRequest((request) => ({...request, start: e.target.value}))}
+            />
+            <InputField
+              id="date-end" placeholder="End" className="w-32"
+              type="date" value={request.end}
+              onChange={(e) => setRequest((request) => ({...request, end: e.target.value}))}
+            />
+          </div>
+          <div className="md:shrink-0">
+            <input
+              type="submit" value="Request Data"
+              className={classNames(
+                'w-full cursor-pointer rounded-md text-sm px-2 py-1.5',
+                'ring-1 ring-inset ring-amber-900 hover:bg-amber-900',
+              )}
+            />
+          </div>
         </form>
       </FullWidthRow>
       <FullWidthRow className="h-full items-center justify-center" ref={ref}>
