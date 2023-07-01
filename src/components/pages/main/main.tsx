@@ -23,12 +23,12 @@ export const Main = () => {
   const dispatch = useDispatch();
 
   const {ref, width, height} = useResizeObserver<HTMLDivElement>();
-  // TODO: Preload from URL if available - then make link on bot
+
   const [request, setRequest] = React.useState<ChartRequestState>({
     item: null,
     start: undefined,
     end: undefined,
-    intervalMin: 15,
+    intervalMin: 30,
   });
 
   const {
