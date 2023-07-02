@@ -10,9 +10,10 @@ export type LegendDataCellProps = {
   direction?: PxDirectionText,
   decimals?: number,
   large?: boolean,
+  className?: string,
 };
 
-export const LegendDataCell = ({title, value, direction, decimals, large}: LegendDataCellProps) => {
+export const LegendDataCell = ({title, value, direction, decimals, large, className}: LegendDataCellProps) => {
   let valueClassName = '';
 
   if (direction === 'up') {
@@ -22,7 +23,7 @@ export const LegendDataCell = ({title, value, direction, decimals, large}: Legen
   }
 
   return (
-    <div className={`inline whitespace-nowrap px-1 py-2 ${valueClassName}`}>
+    <div className={`inline whitespace-nowrap px-1 py-2 ${valueClassName} ${className}`}>
       {
         title &&
         <><span className="text-xs">{title}</span>&nbsp;</>

@@ -31,9 +31,9 @@ export const PxChartLegend = ({legend}: Props) => {
 
   return (
     <div className="p-2 text-sm">
-      <LegendDataCell title="O" value={open} decimals={2}/>
-      <LegendDataCell title="H" value={high} decimals={2}/>
-      <LegendDataCell title="L" value={low} decimals={2}/>
+      <LegendDataCell title="O" value={open} decimals={2} className="hidden sm:inline"/>
+      <LegendDataCell title="H" value={high} decimals={2} className="hidden md:inline"/>
+      <LegendDataCell title="L" value={low} decimals={2} className="hidden md:inline"/>
       <LegendDataCell title="C" value={close} large/>
       <LegendDataCell
         value={`${formatSignedNumber({num: changeVal})} (${formatSignedNumber({num: changePct, decimals: 2})}%)`}
