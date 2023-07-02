@@ -89,7 +89,7 @@ export const Main = () => {
   const {data} = pxDataResponse;
 
   return (
-    <main className="flex h-screen flex-col items-center gap-2 bg-gradient-radial from-indigo-800 p-3">
+    <main className="flex h-full flex-col items-center gap-2 bg-gradient-radial from-indigo-800 p-3">
       <form className="flex w-full flex-col gap-2 md:flex-row md:items-center md:justify-center" onSubmit={onSubmit}>
         <div>
           <Dropdown
