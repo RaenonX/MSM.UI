@@ -86,14 +86,37 @@ export const Main = () => {
     requestPxData();
   }, [request, fetchPxData]);
 
+  const getTitleText = React.useCallback(() => {
+    if (!!request.item) {
+      return request.item;
+    }
+
+    if (availableItemsResponse.fetching) {
+      return '(Loading...)';
+    }
+
+    if (availableItemsResponse.fetched) {
+      if (availableItemsResponse.fetchError) {
+        return '(Unable to fetch available items)';
+      }
+
+      return '(Select an item)';
+    }
+
+    return '(Initializing...)';
+  }, [request.item, availableItemsResponse]);
+
   const {data} = pxDataResponse;
 
   return (
     <main className="flex h-full flex-col items-center gap-2 bg-gradient-radial from-indigo-800 p-3">
-      <form className="flex w-full flex-col gap-2 md:flex-row md:items-center md:justify-center" onSubmit={onSubmit}>
+      <form
+        className="flex w-full flex-col gap-1.5 md:flex-row md:items-center md:justify-center md:gap-3"
+        onSubmit={onSubmit}
+      >
         <div>
           <Dropdown
-            title={request.item ?? '(Select an item)'}
+            title={getTitleText()}
             items={[availableItemsResponse.data.map((item) => ({
               text: item,
               onSelected: () => {
@@ -104,23 +127,26 @@ export const Main = () => {
               },
             }))]}
             disabled={availableItemsResponse.fetchError}
-            buttonClassName="w-full md:w-72 ring-inset ring-1 ring-indigo-700"
+            buttonClassName="w-full md:w-72 whitespace-nowrap"
             itemsClassName="w-full md:w-72"
           />
         </div>
-        <div className="md:flex md:flex-row">
+        <div className="flex flex-row gap-3">
           <InputField
-            id="interval-min" placeholder="Interval (min)" className="w-full md:w-24"
+            id="interval-min" placeholder="Interval (min)"
+            wrapperClassName="w-1/3 md:w-24" inputClassName="-mt-0.5"
             type="number" step="1" min="1" value={request.intervalMin.toString()}
             onChange={(e) => setRequest((request) => ({...request, intervalMin: Number(e.target.value)}))}
           />
           <InputField
-            id="date-start" placeholder="Start" className="w-full md:w-32"
+            id="date-start" placeholder="Start"
+            wrapperClassName="w-1/3 md:w-28" inputClassName="-ml-1 md:-ml-0 -mt-1"
             type="date" value={request.start}
             onChange={(e) => setRequest((request) => ({...request, start: e.target.value}))}
           />
           <InputField
-            id="date-end" placeholder="End" className="w-full md:w-32"
+            id="date-end" placeholder="End"
+            wrapperClassName="w-1/3 md:w-28" inputClassName="-ml-1 md:-ml-0 -mt-1"
             type="date" value={request.end}
             onChange={(e) => setRequest((request) => ({...request, end: e.target.value}))}
           />

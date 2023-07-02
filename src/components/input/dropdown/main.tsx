@@ -21,7 +21,10 @@ export const Dropdown = ({title, items, disabled, buttonClassName, itemsClassNam
     <Menu as="div" className="relative inline-block w-full text-left">
       <Menu.Button className={classNames(
         'inline-flex w-full justify-center items-center gap-x-1.5 rounded-md px-2.5 py-1.5',
-        'text-sm text-gray-200 disabled:bg-gray-700 hover:bg-indigo-700',
+        'text-sm text-gray-200',
+        'ring-1 ring-inset ring-indigo-700',
+        'hover:bg-indigo-700',
+        'disabled:bg-gray-700 disabled:ring-gray-700 disabled:text-gray-400',
         buttonClassName,
       )} disabled={disabled}>
         {title}
