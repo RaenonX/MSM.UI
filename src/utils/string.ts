@@ -21,17 +21,18 @@ type FormatToAbbreviationOpts = {
 };
 
 export const formatToAbbreviation = ({num, decimals}: FormatToAbbreviationOpts): string => {
+  const numForCheck = Math.abs(num); // Need check the case of negative
   decimals = decimals ?? 3;
 
-  if (num > 1E9) {
+  if (numForCheck > 1E9) {
     return `${(num / 1E9).toFixed(decimals)} B`;
   }
 
-  if (num > 1E6) {
+  if (numForCheck > 1E6) {
     return `${(num / 1E6).toFixed(decimals)} M`;
   }
 
-  if (num > 1E3) {
+  if (numForCheck > 1E3) {
     return `${(num / 1E3).toFixed(decimals)} K`;
   }
 
