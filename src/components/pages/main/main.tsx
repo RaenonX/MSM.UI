@@ -7,6 +7,7 @@ import {Dropdown} from '@/components/input/dropdown/main';
 import {InputField} from '@/components/input/field';
 import {FullWidthRow} from '@/components/layout/fullWidthRow';
 import {PxChartArea} from '@/components/pages/main/chartArea';
+import {PxChartInfo} from '@/components/pages/main/info/main';
 import {ChartRequestState} from '@/components/pages/main/type';
 import {useFetchStateProcessed} from '@/hooks/fetch';
 import {errorDispatchers} from '@/state/error/dispatchers';
@@ -117,7 +118,7 @@ export const Main = () => {
   const {data} = pxDataResponse;
 
   return (
-    <main className="flex h-full flex-col items-center gap-2 bg-gradient-radial from-indigo-800 p-3">
+    <main className="flex h-full flex-col items-center gap-1.5 bg-gradient-radial from-indigo-600 p-1.5">
       <form
         className="flex w-full flex-col gap-1.5 md:flex-row md:items-center md:justify-center md:gap-3"
         onSubmit={onSubmit}
@@ -171,6 +172,9 @@ export const Main = () => {
       </form>
       <FullWidthRow className="h-full items-center justify-center" ref={ref}>
         <PxChartArea data={data} width={width} height={height} item={request.item}/>
+      </FullWidthRow>
+      <FullWidthRow className="flex-row-reverse justify-between text-sm">
+        <PxChartInfo data={data}/>
       </FullWidthRow>
     </main>
   );

@@ -21,7 +21,8 @@ export type PxBarNoDataFromApi = PxBarFromApiCommon<true>;
 export type PxBarFromApi = PxBarWithDataFromApi | PxBarNoDataFromApi;
 
 export type PxDataFromApi = {
-  timestamp: string,
+  fetchedAt: string,
+  lastUpdated: string | null,
   item: string,
   bars: PxBarFromApi[],
 };

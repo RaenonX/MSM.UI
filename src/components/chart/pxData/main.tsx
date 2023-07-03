@@ -31,7 +31,7 @@ export const PxDataChart = (props: Props) => {
       renderObjects={{
         legend: (legend) => <PxChartLegendUI legend={legend}/>,
       }}
-      getCompleteUpdateDeps={(data) => [data.timestamp]}
+      getCompleteUpdateDeps={(data) => [data.fetchedAt]}
       {...props}
     />
   );

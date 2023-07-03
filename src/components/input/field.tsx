@@ -21,7 +21,7 @@ export const InputField = ({
       <input
         type={type} id={id} value={value} onChange={onChange}
         className={classNames(
-          'peer w-full focus:outline-none text-sm text-gray-200 bg-transparent',
+          'peer w-full focus:outline-none text-sm text-gray-200 bg-transparent color-scheme-dark',
           inputClassName,
         )}
         placeholder=" "
