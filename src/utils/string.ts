@@ -21,18 +21,17 @@ type FormatToAbbreviationOpts = {
 };
 
 export const formatToAbbreviation = ({num, decimals}: FormatToAbbreviationOpts): string => {
-  const digits = Math.max(Math.floor(Math.log10(Math.abs(num))), 0) + 1;
   decimals = decimals ?? 3;
 
-  if (digits > 9) {
+  if (num > 1E9) {
     return `${(num / 1E9).toFixed(decimals)} B`;
   }
 
-  if (digits > 6) {
+  if (num > 1E6) {
     return `${(num / 1E6).toFixed(decimals)} M`;
   }
 
-  if (digits > 3) {
+  if (num > 1E3) {
     return `${(num / 1E3).toFixed(decimals)} K`;
   }
 
