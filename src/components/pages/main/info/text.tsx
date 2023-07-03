@@ -12,9 +12,9 @@ type Props = {
 export const PxChartInfoText = ({title, date}: Props) => {
   return (
     <>
-      {title} <TimeAgo date={date}/>&nbsp;
-      <span className="text-xs text-gray-400">
-        {format(date, 'yyyy-MM-dd HH:mm:ss (O)')}
+      {title} <TimeAgo date={date}/>
+      <span className="hidden text-xs text-gray-400 md:inline">
+        &nbsp;{format(date, 'yyyy-MM-dd HH:mm:ss (O)')}
       </span>
     </>
   );
