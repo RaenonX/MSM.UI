@@ -1,4 +1,4 @@
-import {getCurrentChartExtremaPx} from '@/components/chart/pxData/plot/utils';
+import {getCurrentChartExtremaPx, getExtremaPxLineOptions} from '@/components/chart/pxData/plot/utils';
 import {OnPxChartUpdatedEvent} from '@/components/chart/pxData/type';
 
 
@@ -14,10 +14,6 @@ export const handleExtrema = ({chartRef, chartObjectRef, chartDataRef}: OnPxChar
     price: chartObjectRef.current.initData.series.price,
   });
 
-  if (!minPx) {
-    return;
-  }
-
-  min.applyOptions({price: minPx});
-  max.applyOptions({price: maxPx});
+  min.applyOptions(getExtremaPxLineOptions(minPx));
+  max.applyOptions(getExtremaPxLineOptions(maxPx));
 };

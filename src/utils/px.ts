@@ -1,22 +1,42 @@
-import {PxChartLegendData} from '@/components/chart/pxData/type';
-import {PxData} from '@/types/px';
+import {PxChartLegend} from '@/components/chart/pxData/type';
+import {PxBar, PxBarWithData, PxData} from '@/types/px';
 
 
-export const toLegendData = (data: PxData): PxChartLegendData => {
-  const lastHistory = data.bars.at(-1);
+export const toLegendDataFromPxData = ({bars, item}: PxData): PxChartLegend => {
+  return toLegendDataFromBar({bar: bars.at(-1), item, hovered: false});
+};
 
-  const open = lastHistory?.open ?? NaN;
-  const close = lastHistory?.close ?? NaN;
-  const change = close - open;
+type ToLegendDataFromBarOpts = {
+  bar: PxBar | undefined,
+  item: string,
+  hovered: boolean,
+};
 
-  return {
-    item: data.item,
-    open,
-    high: lastHistory?.high ?? NaN,
-    low: lastHistory?.low ?? NaN,
-    close,
-    changeVal: change,
-    changePct: (change / open) * 100,
-    hovered: false,
-  };
+export const toLegendDataFromBar = ({bar, item, hovered}: ToLegendDataFromBarOpts): PxChartLegend => {
+  if (bar && isPxBarWithData(bar)) {
+    const open = bar.open;
+    const close = bar.close;
+
+    return {
+      item,
+      open,
+      high: bar.high ?? NaN,
+      low: bar.low ?? NaN,
+      close,
+      changeVal: bar.diff,
+      changePct: (bar.diff / open) * 100,
+      hovered,
+      empty: false,
+    };
+  }
+
+  return {item, empty: true};
+};
+
+export const isPxBarWithData = (bar: PxBar | undefined): bar is PxBarWithData => {
+  if (bar === undefined) {
+    return false;
+  }
+
+  return !bar.empty;
 };

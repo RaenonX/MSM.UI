@@ -51,11 +51,19 @@ export const Main = () => {
     'Unable to get Px data.',
     ({data}) => ({
       ...data,
-      bars: data.bars.map((bar) => ({
-        ...bar,
-        diff: bar.close - bar.open,
-        epochSecond: updateEpochSecToLocal(bar.epochSecond),
-      })),
+      bars: data.bars.map((bar) => {
+        const epochSecond = updateEpochSecToLocal(bar.epochSecond);
+
+        if (bar.empty) {
+          return {...bar, epochSecond};
+        }
+
+        return {
+          ...bar,
+          epochSecond,
+          diff: bar.close - bar.open,
+        };
+      }),
     }),
   );
 

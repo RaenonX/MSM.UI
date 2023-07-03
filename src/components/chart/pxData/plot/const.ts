@@ -13,9 +13,9 @@ export const currentPxColor = '#d7d7d7';
 
 export const extremaCommonOptions: ExtremaCommonOptions = {
   color: '#606569',
+  lineVisible: true,
   lineStyle: LineStyle.Dotted,
   lineWidth: 2,
-  lineVisible: true,
   axisLabelVisible: true,
   axisLabelColor: '#142E61',
   axisLabelTextColor: '#e3e3e3',

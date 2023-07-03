@@ -1,11 +1,11 @@
-import {PxBarFromApi} from '@/types/api/px';
+import {PxBarNoDataFromApi, PxBarWithDataFromApi} from '@/types/api/px';
 
 
 export type PxDirectionText = 'up' | 'neutral' | 'down';
 
-export type PxBar = PxBarFromApi & {
-  diff: number,
-};
+export type PxBarWithData = PxBarWithDataFromApi & {diff: number};
+
+export type PxBar = PxBarWithData | PxBarNoDataFromApi;
 
 export type PxData = {
   timestamp: string,

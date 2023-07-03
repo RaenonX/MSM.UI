@@ -1,5 +1,6 @@
 import {OnPxChartUpdatedEvent} from '@/components/chart/pxData/type';
-import {toLegendData} from '@/utils/px';
+import {isPxChartLegendWithData} from '@/utils/legend';
+import {toLegendDataFromPxData} from '@/utils/px';
 
 
 export const handleLegend = ({chartDataRef, setObject}: OnPxChartUpdatedEvent) => {
@@ -9,6 +10,6 @@ export const handleLegend = ({chartDataRef, setObject}: OnPxChartUpdatedEvent) =
     ...legend,
     // Only update the legend on Px changed if not hovered,
     // So even if the latest bar is updated, the legend won't change
-    ...(legend.hovered ? {} : toLegendData(chartData)),
+    ...(isPxChartLegendWithData(legend) && legend.hovered ? {} : toLegendDataFromPxData(chartData)),
   }));
 };

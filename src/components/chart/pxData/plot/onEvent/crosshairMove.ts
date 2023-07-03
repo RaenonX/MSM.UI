@@ -1,6 +1,7 @@
 import {MouseEventHandler} from 'lightweight-charts';
 
-import {OnPxChartInitEvent, PxChartLegendData} from '@/components/chart/pxData/type';
+import {OnPxChartInitEvent} from '@/components/chart/pxData/type';
+import {toLegendDataFromBar} from '@/utils/px';
 
 
 export const handleCrosshairMove = ({
@@ -14,22 +15,15 @@ export const handleCrosshairMove = ({
 
   const hovered = data.find(({epochSecond}) => epochSecond === time);
 
-  // Using `last` because moving out of chart makes `lastPrice` undefined
   setObject.legend(({item}) => {
-    const legend: PxChartLegendData = {
-      item,
-      open: hovered?.open ?? last?.open ?? NaN,
-      high: hovered?.high ?? last?.high ?? NaN,
-      low: hovered?.low ?? last?.low ?? NaN,
-      close: hovered?.close ?? last?.close ?? NaN,
-      changeVal: hovered?.diff ?? last?.diff ?? NaN,
-      changePct:
-        (hovered ? hovered.diff / hovered.open * 100 : null) ??
-        (last ? last.diff / last.open * 100 : null) ??
-        NaN,
-      hovered: !!hovered,
-    };
+    if (!!hovered) {
+      return toLegendDataFromBar({bar: hovered, item, hovered: true});
+    }
 
-    return legend;
+    if (!!last) {
+      return toLegendDataFromBar({bar: last, item, hovered: false});
+    }
+
+    return toLegendDataFromBar({bar: undefined, item, hovered: false});
   });
 };

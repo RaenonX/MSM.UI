@@ -19,7 +19,6 @@ export const apiGetPxData = (params: ApiGetPxDataOpts): Promise<AxiosResponse<Px
   })
 );
 
-
 export const apiGetAvailableItems = (): Promise<AxiosResponse<AvailableItemsResponse>> => (
   apiGet({apiPath: '/api/item/available'})
 );

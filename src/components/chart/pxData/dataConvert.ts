@@ -1,13 +1,19 @@
 import {CandlestickData, SeriesDataItemTypeMap, UTCTimestamp} from 'lightweight-charts';
 
 import {PxBar} from '@/types/px';
+import {isPxBarWithData} from '@/utils/px';
 import {KeysOfType} from '@/utils/types';
 
 
-export const toCandlestick = (bar: PxBar): CandlestickData => ({
-  time: bar.epochSecond as UTCTimestamp,
-  ...bar,
-});
+export const toCandlestick = (bar: PxBar): SeriesDataItemTypeMap['Candlestick'] => {
+  const time = bar.epochSecond as UTCTimestamp;
+
+  if (isPxBarWithData(bar)) {
+    return {...bar, time};
+  }
+
+  return {time};
+};
 
 export type GetPxFromBar = (bar: PxBar) => number | undefined;
 

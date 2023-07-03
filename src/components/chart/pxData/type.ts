@@ -22,8 +22,12 @@ export type PxChartLines = {
   extrema: PxChartExtremaSeries,
 };
 
-export type PxChartLegendData = {
+export type PxChartLegendCommon<Empty extends boolean> = {
   item: string,
+  empty: Empty,
+};
+
+export type PxChartLegendWithData = PxChartLegendCommon<false> & {
   open: number,
   high: number,
   low: number,
@@ -32,6 +36,10 @@ export type PxChartLegendData = {
   changePct: number,
   hovered: boolean,
 };
+
+export type PxChartLegendNoData = PxChartLegendCommon<true>;
+
+export type PxChartLegend = PxChartLegendWithData | PxChartLegendNoData;
 
 export type PxChartInitData = {
   series: PxChartSeries,
@@ -44,14 +52,14 @@ export type PxChartPayload = {};
 export type OnPxChartInitEvent = OnChartInitEvent<
   PxData,
   PxChartInitData,
-  PxChartLegendData,
+  PxChartLegend,
   PxChartPayload
 >;
 
 export type PxChartInitEventHandler = ChartInitEventHandler<
   PxData,
   PxChartInitData,
-  PxChartLegendData,
+  PxChartLegend,
   PxChartPayload
 >;
 
@@ -59,12 +67,12 @@ export type OnPxChartUpdatedEvent = OnChartDataUpdatedEvent<
   PxData,
   PxChartPayload,
   PxChartInitData,
-  PxChartLegendData
+  PxChartLegend
 >;
 
 export type PxChartUpdatedEventHandler = ChartDataUpdatedEventHandler<
   PxData,
   PxChartPayload,
   PxChartInitData,
-  PxChartLegendData
+  PxChartLegend
 >;

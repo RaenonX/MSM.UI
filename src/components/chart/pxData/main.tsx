@@ -1,10 +1,10 @@
 import {TradingViewChart, TradingViewChartProps} from '@/components/chart/base/main';
-import {PxChartLegend} from '@/components/chart/pxData/legend/main';
+import {PxChartLegendUI} from '@/components/chart/pxData/legend/main';
 import {onPxChartInit} from '@/components/chart/pxData/plot/onInit/main';
 import {onPxChartUpdated} from '@/components/chart/pxData/plot/onUpdate/main';
-import {PxChartInitData, PxChartLegendData, PxChartPayload} from '@/components/chart/pxData/type';
+import {PxChartInitData, PxChartLegend, PxChartPayload} from '@/components/chart/pxData/type';
 import {PxData} from '@/types/px';
-import {toLegendData} from '@/utils/px';
+import {toLegendDataFromPxData} from '@/utils/px';
 
 
 type Props = Pick<
@@ -12,7 +12,7 @@ type Props = Pick<
     PxData,
     PxChartPayload,
     PxChartInitData,
-    PxChartLegendData
+    PxChartLegend
   >,
   'chartData' |
   'height' |
@@ -26,10 +26,10 @@ export const PxDataChart = (props: Props) => {
       initChart={onPxChartInit}
       onDataUpdated={onPxChartUpdated}
       calcObjects={{
-        legend: toLegendData,
+        legend: toLegendDataFromPxData,
       }}
       renderObjects={{
-        legend: (legend) => <PxChartLegend legend={legend}/>,
+        legend: (legend) => <PxChartLegendUI legend={legend}/>,
       }}
       getCompleteUpdateDeps={(data) => [data.timestamp]}
       {...props}

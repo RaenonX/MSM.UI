@@ -1,7 +1,7 @@
 import {ISeriesApi} from 'lightweight-charts';
 
 import {extremaCommonOptions} from '@/components/chart/pxData/plot/const';
-import {getCurrentChartExtremaPx} from '@/components/chart/pxData/plot/utils';
+import {getCurrentChartExtremaPx, getExtremaPxLineOptions} from '@/components/chart/pxData/plot/utils';
 import {OnPxChartInitEvent, PxChartExtremaSeries} from '@/components/chart/pxData/type';
 
 
@@ -18,20 +18,16 @@ export const handleExtrema = (e: OnPxChartInitEvent, price: ISeriesApi<'Candlest
     price,
   });
 
-  if (!minPx) {
-    throw new Error('Failed to initialize extrema Px lines');
-  }
-
   return {
     max: price.createPriceLine({
       title: 'High',
-      price: maxPx,
       ...extremaCommonOptions,
+      ...getExtremaPxLineOptions(maxPx),
     }),
     min: price.createPriceLine({
       title: 'Low',
-      price: minPx,
       ...extremaCommonOptions,
+      ...getExtremaPxLineOptions(minPx),
     }),
   };
 };
