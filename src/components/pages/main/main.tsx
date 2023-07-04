@@ -1,24 +1,18 @@
 import React from 'react';
 
-import {AxiosResponse} from 'axios';
 import useResizeObserver from 'use-resize-observer';
 
 import {Dropdown} from '@/components/input/dropdown/main';
 import {InputField} from '@/components/input/field';
 import {FullWidthRow} from '@/components/layout/fullWidthRow';
 import {PxChartArea} from '@/components/pages/main/chartArea';
+import {useApiRequests} from '@/components/pages/main/hooks';
 import {PxChartInfo} from '@/components/pages/main/info/main';
 import {ChartRequestState} from '@/components/pages/main/type';
-import {useFetchStateProcessed} from '@/hooks/fetch';
 import {errorDispatchers} from '@/state/error/dispatchers';
 import {ErrorDispatcherName} from '@/state/error/types';
 import {useDispatch} from '@/state/store';
-import {AvailableItemsResponse} from '@/types/api/item';
-import {PxDataFromApi} from '@/types/api/px';
-import {PxData} from '@/types/px';
-import {apiGetAvailableItems, apiGetPxData, ApiGetPxDataOpts} from '@/utils/api/px';
 import {classNames} from '@/utils/react';
-import {updateEpochSecToLocal} from '@/utils/time';
 
 
 export const Main = () => {
@@ -34,42 +28,20 @@ export const Main = () => {
   });
 
   const {
-    fetchStatus: availableItemsResponse,
-    fetchFunction: fetchAvailableItems,
-  } = useFetchStateProcessed<string[], AxiosResponse<AvailableItemsResponse>, null>(
-    [],
-    () => apiGetAvailableItems(),
-    'Unable to get available items.',
-    ({data}) => data.items,
-  );
-
-  const {
-    fetchStatus: pxDataResponse,
-    fetchFunction: fetchPxData,
-  } = useFetchStateProcessed<PxData | null, AxiosResponse<PxDataFromApi>, ApiGetPxDataOpts>(
-    null,
-    (opts) => apiGetPxData(opts),
-    'Unable to get Px data.',
-    ({data}) => ({
-      ...data,
-      bars: data.bars.map((bar) => {
-        const epochSecond = updateEpochSecToLocal(bar.epochSecond);
-
-        if (bar.empty) {
-          return {...bar, epochSecond};
-        }
-
-        return {
-          ...bar,
-          epochSecond,
-          diff: bar.close - bar.open,
-        };
-      }),
-    }),
-  );
+    availableItemsResponse,
+    fetchAvailableItems,
+    snipingItemResponse,
+    fetchSnipingItem,
+    pxDataResponse,
+    fetchPxData,
+  } = useApiRequests();
 
   React.useEffect(() => {
     fetchAvailableItems({
+      force: true,
+      payload: null,
+    });
+    fetchSnipingItem({
       force: true,
       payload: null,
     });
@@ -116,9 +88,13 @@ export const Main = () => {
   }, [request.item, availableItemsResponse]);
 
   const {data} = pxDataResponse;
+  const {data: snipingItem} = snipingItemResponse;
 
   return (
-    <main className="flex h-full flex-col items-center gap-1.5 bg-gradient-radial from-indigo-600 p-2 md:p-1.5">
+    <main className={classNames(
+      'flex h-full flex-col items-center gap-1.5 bg-gradient-radial p-2 md:p-1.5',
+      !!snipingItem ? 'from-orange-700' : 'from-indigo-600',
+    )}>
       <form
         className="flex w-full flex-col gap-1.5 md:flex-row md:items-center md:justify-center md:gap-3"
         onSubmit={onSubmit}
@@ -171,7 +147,7 @@ export const Main = () => {
         </div>
       </form>
       <FullWidthRow className="h-full items-center justify-center" ref={ref}>
-        <PxChartArea data={data} width={width} height={height} item={request.item}/>
+        <PxChartArea data={data} width={width} height={height} item={request.item} sniping={snipingItem}/>
       </FullWidthRow>
       <FullWidthRow className="flex-row-reverse justify-between text-sm">
         <PxChartInfo data={data}/>

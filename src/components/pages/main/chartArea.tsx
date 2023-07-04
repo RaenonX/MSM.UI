@@ -2,6 +2,8 @@ import React from 'react';
 
 import {PxDataChart} from '@/components/chart/pxData/main';
 import {Loading} from '@/components/icons/loading';
+import {PxChartSnipingInfo} from '@/components/pages/main/info/sniping';
+import {SnipingItemResponse} from '@/types/api/item';
 import {PxData} from '@/types/px';
 
 
@@ -10,14 +12,24 @@ type Props = {
   item: string | null,
   width: number | undefined,
   height: number | undefined,
+  sniping: SnipingItemResponse['item'],
 };
 
-export const PxChartArea = ({data, item, width, height}: Props) => {
+export const PxChartArea = ({data, item, width, height, sniping}: Props) => {
   if (!data) {
-    if (!item) {
-      return <span className="text-xl">Select an item</span>;
+    // No price data loaded
+
+    if (!!sniping) {
+      // There is item being sniped
+      return <PxChartSnipingInfo sniping={sniping}/>;
     }
 
+    if (!item) {
+      // No item selected
+      return <span className="text-3xl">Select an item</span>;
+    }
+
+    // Loading
     return (
       <div className="h-16">
         <Loading/>
@@ -26,6 +38,7 @@ export const PxChartArea = ({data, item, width, height}: Props) => {
   }
 
   if (!width || !height) {
+    // Element dimension unavailable
     return <></>;
   }
 

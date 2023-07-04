@@ -1,6 +1,6 @@
 import {AxiosResponse} from 'axios';
 
-import {AvailableItemsResponse} from '@/types/api/item';
+import {AvailableItemsResponse, SnipingItemResponse} from '@/types/api/item';
 import {PxDataFromApi} from '@/types/api/px';
 import {apiGet} from '@/utils/api/common/get';
 
@@ -21,4 +21,8 @@ export const apiGetPxData = (params: ApiGetPxDataOpts): Promise<AxiosResponse<Px
 
 export const apiGetAvailableItems = (): Promise<AxiosResponse<AvailableItemsResponse>> => (
   apiGet({apiPath: '/api/item/available'})
+);
+
+export const apiGetSnipingItem = (): Promise<AxiosResponse<SnipingItemResponse>> => (
+  apiGet({apiPath: '/api/item/sniping-web'})
 );
