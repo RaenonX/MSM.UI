@@ -44,7 +44,11 @@ export const PxChartLegendDataUI = ({legend}: Props) => {
         className={`hidden text-[#b094ff] md:inline`}
       />
       <LegendDataCell
-        value={`${formatSignedNumber({num: changeVal})} (${formatSignedNumber({num: changePct, decimals: 2})}%)`}
+        value={
+          changeVal === 0 ?
+            '-' :
+            `${formatSignedNumber({num: changeVal})} (${formatSignedNumber({num: changePct, decimals: 2})}%)`
+        }
         direction={direction}
       />
     </>
