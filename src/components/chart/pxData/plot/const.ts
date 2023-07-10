@@ -11,6 +11,8 @@ export const bearColor = '#ef5350';
 
 export const currentPxColor = '#d7d7d7';
 
+export const tickBarColor = 'rgba(134,69,232,0.4)';
+
 export const extremaCommonOptions: ExtremaCommonOptions = {
   color: '#606569',
   lineVisible: true,

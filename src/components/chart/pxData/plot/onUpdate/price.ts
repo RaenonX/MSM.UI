@@ -10,11 +10,5 @@ export const handlePrice = ({chartDataRef, chartObjectRef}: OnPxChartUpdatedEven
   const {price} = chartObjectRef.current.initData.series;
   const {bars} = chartDataRef.current;
 
-  const lastPrice = bars.at(-1);
-
-  if (!lastPrice) {
-    return;
-  }
-
   price.setData(bars.map(toCandlestick));
 };

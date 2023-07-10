@@ -24,6 +24,12 @@ export const handlePrice = ({chartRef, chartDataRef}: OnPxChartInitEvent): ISeri
     wickDownColor: bearColor,
     priceLineColor: currentPxColor,
   });
+  price.priceScale().applyOptions({
+    scaleMargins: {
+      top: 0.08, // 8% away from the top
+      bottom: 0.2, // 15% is the height of tick bars
+    },
+  });
   price.setData(bars.map(toCandlestick));
 
   return price;

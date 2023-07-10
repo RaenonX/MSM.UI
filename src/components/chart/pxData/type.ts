@@ -11,6 +11,7 @@ import {PxData} from '@/types/px';
 
 export type PxChartSeries = {
   price: ISeriesApi<'Candlestick'>,
+  ticks: ISeriesApi<'Histogram'>,
 };
 
 export type PxChartExtremaSeries = {
@@ -34,6 +35,7 @@ export type PxChartLegendWithData = PxChartLegendCommon<false> & {
   close: number,
   changeVal: number,
   changePct: number,
+  upTick: number,
   hovered: boolean,
 };
 

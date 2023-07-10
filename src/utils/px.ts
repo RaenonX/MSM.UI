@@ -23,6 +23,7 @@ export const toLegendDataFromBar = ({bar, item, hovered}: ToLegendDataFromBarOpt
       high: bar.high ?? NaN,
       low: bar.low ?? NaN,
       close,
+      upTick: bar.upTick,
       changeVal: bar.diff,
       changePct: (bar.diff / open) * 100,
       hovered,

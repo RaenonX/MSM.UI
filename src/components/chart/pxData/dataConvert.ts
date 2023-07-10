@@ -15,6 +15,16 @@ export const toCandlestick = (bar: PxBar): SeriesDataItemTypeMap['Candlestick'] 
   return {time};
 };
 
+export const toUpTickHistogram = (bar: PxBar): SeriesDataItemTypeMap['Histogram'] => {
+  const time = bar.epochSecond as UTCTimestamp;
+
+  if (isPxBarWithData(bar)) {
+    return {value: bar.upTick, time};
+  }
+
+  return {time};
+};
+
 export type GetPxFromBar = (bar: PxBar) => number | undefined;
 
 export const toCandlestickForFill = (

@@ -28,7 +28,7 @@ export const Dropdown = ({title, items, disabled, buttonClassName, itemsClassNam
         buttonClassName,
       )} disabled={disabled}>
         {title}
-        {!disabled && <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-200" aria-hidden="true"/>}
+        {!disabled && <ChevronDownIcon className="-mr-1 h-5 w-5 text-gray-200"/>}
       </Menu.Button>
 
       <Transition
