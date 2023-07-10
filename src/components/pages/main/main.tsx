@@ -34,6 +34,8 @@ export const Main = () => {
     fetchSnipingItem,
     pxDataResponse,
     fetchPxData,
+    scriptLoopStatsResponse,
+    fetchScriptLoopStats,
   } = useApiRequests();
 
   React.useEffect(() => {
@@ -44,6 +46,10 @@ export const Main = () => {
     fetchSnipingItem({
       force: true,
       payload: null,
+    });
+    fetchScriptLoopStats({
+      force: true,
+      payload: 5,
     });
   }, []);
 
@@ -144,6 +150,10 @@ export const Main = () => {
               'ring-1 ring-inset ring-amber-900 hover:bg-amber-900',
             )}
           />
+        </div>
+        <div className="self-end whitespace-nowrap text-end text-xs">
+          ~<span className="text-sm">{scriptLoopStatsResponse.data?.avgItemSec.toFixed(3) ?? '-'} s</span>
+          &nbsp;per item check
         </div>
       </form>
       <FullWidthRow className="h-full items-center justify-center" ref={ref}>

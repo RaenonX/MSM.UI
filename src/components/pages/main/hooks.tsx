@@ -1,5 +1,11 @@
-import {useFetchStateProcessed} from '@/hooks/fetch';
-import {apiGetAvailableItems, apiGetPxData, ApiGetPxDataOpts, apiGetSnipingItem} from '@/utils/api/px';
+import {useFetchState, useFetchStateProcessed} from '@/hooks/fetch';
+import {
+  apiGetAvailableItems,
+  apiGetPxData,
+  ApiGetPxDataOpts,
+  apiGetScriptLoopStats,
+  apiGetSnipingItem,
+} from '@/utils/api/main';
 import {updateEpochSecToLocal} from '@/utils/time';
 
 
@@ -49,6 +55,15 @@ export const useApiRequests = () => {
     }),
   );
 
+  const {
+    fetchStatus: scriptLoopStatsResponse,
+    fetchFunction: fetchScriptLoopStats,
+  } = useFetchState(
+    null,
+    (loops: number) => apiGetScriptLoopStats({loops}),
+    'Unable to get script loop stats.',
+  );
+
   return {
     availableItemsResponse,
     fetchAvailableItems,
@@ -56,5 +71,7 @@ export const useApiRequests = () => {
     fetchSnipingItem,
     pxDataResponse,
     fetchPxData,
+    scriptLoopStatsResponse,
+    fetchScriptLoopStats,
   };
 };

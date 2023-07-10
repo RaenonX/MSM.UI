@@ -1,10 +1,10 @@
-// IPxBarModel of server
+// IPxBarModel on server
 type PxBarFromApiCommon<Empty extends boolean> = {
   epochSecond: number,
   empty: Empty,
 };
 
-// PxBarModel of server
+// PxBarModel on server
 export type PxBarWithDataFromApi = PxBarFromApiCommon<false> & {
   epochSecond: number,
   open: number,
@@ -15,11 +15,12 @@ export type PxBarWithDataFromApi = PxBarFromApiCommon<false> & {
   downTick: number,
 };
 
-// PxBarEmptyModel of server
+// PxBarEmptyModel on server
 export type PxBarNoDataFromApi = PxBarFromApiCommon<true>;
 
 export type PxBarFromApi = PxBarWithDataFromApi | PxBarNoDataFromApi;
 
+// PxBarResponse on server
 export type PxDataFromApi = {
   fetchedAt: string,
   lastUpdated: string | null,

@@ -1,4 +1,4 @@
-import {ApiGetPxDataOpts} from '@/utils/api/px';
+import {ApiGetPxDataOpts} from '@/utils/api/main';
 
 
 export type ChartRequestState = Omit<ApiGetPxDataOpts, 'item'> & {
